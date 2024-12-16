@@ -1,5 +1,6 @@
 package game2048;
 
+import javax.lang.model.type.NullType;
 import java.util.Formatter;
 import java.util.Observable;
 
@@ -138,6 +139,13 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++){
+            for (int j = 0; j < b.size(); j++){
+                if (b.tile(i, j) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +156,13 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        for (int i = 0; i < b.size(); i++){
+            for (int j = 0; j < b.size(); j++){
+                if (b.tile(i, j) != null && b.tile(i, j).value() == MAX_PIECE ){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +174,39 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        for (int row = 0; row < b.size(); row++) {
+            for (int col = 0; col < b.size(); col++) {
+                if (b.tile(row, col) == null) {
+                    return true;
+                } else if (b.tile(row, col) != null && b.tile(row, col).value() == 0) {
+                    return true;
+                }
+            }
+        }
+
+        for (int row = 0; row < b.size(); row++) {
+            int log = 0;
+            for (int col = 0; col < b.size(); col++) {
+                if (b.tile(row, col).value() == log) {
+                    return true;
+                } else {
+                    log = b.tile(row, col).value();
+                }
+            }
+        }
+
+        for (int row = 0; row < b.size(); row++) {
+            int log = 0;
+            for (int col = 0; col < b.size(); col++) {
+                if (b.tile(col, row).value() == log) {
+                    return true;
+                } else {
+                    log = b.tile(col, row).value();
+                }
+            }
+        }
+
+
         return false;
     }
 
