@@ -146,13 +146,13 @@ public class Model extends Observable {
     private int destination(Tile t, int sCol, int sRow, Side side, boolean headMerge) {
         int des = 3;
         for (int row = sRow + 1; row < 4; row++) {
-            int pCol = side.col(sCol, row, board.size()), pRow = side.row(sCol, row, board.size());
             if (board.tile(sCol, row) != null) {
                 if (board.tile(sCol, row).value() == t.value() && !headMerge) {
                     des = row;
                 } else {
                     des = row - 1;
                 }
+                return des;
             }
         }
         return des;
