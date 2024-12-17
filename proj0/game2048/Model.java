@@ -120,8 +120,8 @@ public class Model extends Observable {
             for (int row = 3; row > -1; row--) {
                 if (board.tile(col, row) != null) {
                     Tile t = board.tile(col, row);
-                    int des = destination(t, headMerge);
-                    if (des != t.row()) {
+                    int des = destination(t, col, row, side, headMerge);
+                    if (des != row) {
                         changed = true;
                         if (board.move(col, des, t)) {
                             headMerge = true;
@@ -129,6 +129,8 @@ public class Model extends Observable {
                         } else {
                             headMerge = false;
                         }
+                    } else {
+                        headMerge = false;
                     }
                 }
             }
@@ -141,11 +143,12 @@ public class Model extends Observable {
         return changed;
     }
 
-    private int destination(Tile t, boolean headMerge) {
+    private int destination(Tile t, int sCol, int sRow, Side side, boolean headMerge) {
         int des = 3;
-        for (int row = t.row() + 1; row < 4; row++) {
-            if (board.tile(t.col(), row) != null) {
-                if (board.tile(t.col(), row).value() == t.value() && !headMerge) {
+        for (int row = sRow + 1; row < 4; row++) {
+            int pCol = side.col(sCol, row, board.size()), pRow = side.row(sCol, row, board.size());
+            if (board.tile(sCol, row) != null) {
+                if (board.tile(sCol, row).value() == t.value() && !headMerge) {
                     des = row;
                 } else {
                     des = row - 1;
