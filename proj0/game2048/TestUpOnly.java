@@ -105,6 +105,6 @@ public class TestUpOnly extends TestUtils {
         String prevBoard = model.toString();
         boolean changed = model.tilt(Side.NORTH);
         checkChanged(Side.NORTH, true, changed);
-        checkModel(after, 4, 0, prevBoard, Side.NORTH);
+         checkModel(after, 4, 0, prevBoard, Side.NORTH);
     }
 }
